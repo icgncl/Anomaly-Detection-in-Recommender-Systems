@@ -23,3 +23,11 @@ class SqlStrings:
     FROM total_ratings_per_year as ty LEFT JOIN total_ratings_per_year_w_ranks tyr ON ty.year = tyr.year
     ORDER BY ty.year, tyr.overall
     """
+
+    totals = """
+    SELECT 
+        count(*) as number_of_reviews, 
+        count(DISTINCT reviewerID) as total_number_of_users,
+        count(DISTINCT asin) as number_of_distinct_products
+    FROM magazine_table
+    """
