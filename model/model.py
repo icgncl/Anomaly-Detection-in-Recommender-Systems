@@ -25,7 +25,7 @@ class Model:
         tokenizer, model = Model.model_insertion()
         data = [json.loads(line) for line in open('data/Magazine_Subscriptions.json', 'r')]
         ind = 0
-        with open("data/Magazine_Sub_With_Rating2.csv", 'a', newline='') as file:
+        with open("data/Magazine_Sub_With_Rating.csv", 'a', newline='') as file:
             for each_review in data:
                 try:
                     if ind == 0:
