@@ -40,7 +40,8 @@ class Analysis:
             .option("escape", '"').csv('data/Magazine_Sub_With_Rating.csv')
 
         sns.boxplot(x="overall", y="modelRating", data=new_data.toPandas())
-        plt.ylabel('Overall Rating')
-        plt.title('NLP Model Rating')
+        plt.xlabel('Overall Rating')
+        plt.ylabel("NLP Model Rating")
+        plt.title('Anomaly Detection')
         plt.savefig('outputs/anomaly_detection.png')
         plt.show()
