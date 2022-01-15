@@ -26,13 +26,9 @@ class SqlStrings:
 
     totals = """
     SELECT 
-        count(*) as number_of_reviews, 
-        count(DISTINCT reviewerID) as total_number_of_users,
-        count(DISTINCT asin) as number_of_distinct_products
+        COUNT(*) as number_of_reviews, 
+        COUNT(DISTINCT reviewerID) as total_number_of_users,
+        COUNT(DISTINCT asin) as number_of_distinct_products,
+        COUNT(CASE when reviewText is null then 1 END) as number_of_null_results
     FROM magazine_table
     """
-
-    test_model = """
-    SELECT reviewText, overall
-    FROM magazine_table
-    LIMIT 10"""
