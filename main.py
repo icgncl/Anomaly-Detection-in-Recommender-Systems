@@ -28,6 +28,9 @@ def main():
     # In the new csv, ratings were calculated according to their reviewTexts
     Model.create_new_data_w_nlp()
 
+    # Anomaly Detection
+    Analysis.anomaly_detection(spark)
+
     spark.stop()
 
 

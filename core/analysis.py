@@ -28,3 +28,19 @@ class Analysis:
     def calculate_totals(spark):
         totals = spark.sql(SqlStrings.totals).toPandas()
         print(totals)
+
+    @staticmethod
+    def anomaly_detection(spark):
+        new_data = spark.read\
+            .option("multiline", "true")\
+            .option("quote", '"')\
+            .option("header", "true")\
+            .option("escape", "\\")\
+            .option("inferSchema", "true")\
+            .option("escape", '"').csv('data/Magazine_Sub_With_Rating.csv')
+
+        sns.boxplot(x="overall", y="modelRating", data=new_data.toPandas())
+        plt.ylabel('Overall Rating')
+        plt.title('NLP Model Rating')
+        plt.savefig('outputs/anomaly_detection.png')
+        plt.show()
