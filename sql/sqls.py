@@ -31,3 +31,8 @@ class SqlStrings:
         count(DISTINCT asin) as number_of_distinct_products
     FROM magazine_table
     """
+
+    test_model = """
+    SELECT reviewText, overall
+    FROM magazine_table
+    LIMIT 10"""

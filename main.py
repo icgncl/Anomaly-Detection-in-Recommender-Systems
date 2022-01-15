@@ -1,5 +1,8 @@
+import torch
 from pyspark.sql import SparkSession
 from core import Analysis
+from model import Model
+from sql import SqlStrings
 
 
 def main():
@@ -22,9 +25,12 @@ def main():
     # Calculating the totals on the data
     Analysis.calculate_totals(spark)
 
-
-
-
+    # Testing NLP model with first 10 reviews
+    first_1000_reviews = (spark.sql(SqlStrings.test_model).toPandas())
+    for i in range(1,10):
+        print(first_1000_reviews.loc[i,'reviewText' ])
+        print(torch.argmax(Model.prediction(first_1000_reviews.loc[i, 'reviewText'])).item()+1)
+        print((first_1000_reviews.loc[i, 'overall']))
     spark.stop()
 
 
