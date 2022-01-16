@@ -16,5 +16,5 @@ The RMSE value with ratings generated from product review texts with NLP: 1.504
 In this project, Amazon Review Dataset[1] is used. The dataset was already divided to categories. In this project, "Magazine Subscriptions" category is used;
 however, the all categories can be used with this project.
 
-References: 
+# References: 
 [1] Justifying recommendations using distantly-labeled reviews and fined-grained aspects. Jianmo Ni, Jiacheng Li, Julian McAuley Empirical Methods in Natural Language Processing (EMNLP), 2019
