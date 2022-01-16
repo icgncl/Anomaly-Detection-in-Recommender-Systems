@@ -3,6 +3,7 @@ It is a term project repository for CENG790 course in METU. In this project, pro
 ![total_ratings_per_year](https://github.com/icgncl/CENG790_Project/blob/main/outputs/total_ratings_per_year.png?raw=true)
 
 Also in the project, the product review texts were analyzed semantically with BERT. The output of NLP model is "modelRating" and the dataset was already included product ratings. With these two data, anomalies were detected in the project.
+
 ![anomaly_detection](https://github.com/icgncl/CENG790_Project/blob/main/outputs/anomaly_detection.png?raw=true)
 
 Then we have used ALS in order to recommend new magazines. The model was finetuned, best parameters found as iteration: 20, rank: 24, regParam: 0.5 for ALS.
