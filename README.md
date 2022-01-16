@@ -9,7 +9,7 @@ Also in the project, the product review texts were analyzed semantically with BE
 Then we have used ALS in order to recommend new magazines. The model was finetuned, best parameters found as iteration: 20, rank: 24, regParam: 0.5 for ALS.
 Finally, ALS model was used with original product ratings and ratings generated from product review texts with NLP. 
 
-The RMSE value with original product ratings: 1.649
+The RMSE value with original product ratings: 1.649\
 The RMSE value with ratings generated from product review texts with NLP: 1.504
 
 # Dataset 
