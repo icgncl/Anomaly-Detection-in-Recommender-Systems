@@ -5,6 +5,19 @@ import seaborn as sns
 
 
 class Analysis:
+
+    @staticmethod
+    def analyzer(spark, initial_data):
+        # Read json and convert it to table
+        magazine_df = spark.read.json('data/Magazine_Subscriptions.json')
+        magazine_df.createOrReplaceTempView("magazine_table")
+
+        Analysis.number_of_ratings_per_rating(spark)
+        Analysis.number_of_ratings_per_rating_n_year(spark)
+        Analysis.calculate_totals(spark)
+        anomaly_labels = Analysis.anomaly_detection(initial_data, spark)
+        return anomaly_labels
+
     @staticmethod
     def number_of_ratings_per_rating(spark):
         total_ratings = spark.sql(SqlStrings.groupby_rating_sql).toPandas()
@@ -30,18 +43,13 @@ class Analysis:
         print(totals)
 
     @staticmethod
-    def anomaly_detection(spark):
-        new_data = spark.read\
-            .option("multiline", "true")\
-            .option("quote", '"')\
-            .option("header", "true")\
-            .option("escape", "\\")\
-            .option("inferSchema", "true")\
-            .option("escape", '"').csv('data/Magazine_Sub_With_Rating.csv')
+    def anomaly_detection(initial_data, spark):
+        plt.figure(3)
+        sns.boxplot(x="overall", y="modelRating", data=initial_data.toPandas())
+        anomaly_labels = initial_data.toPandas().groupby(["overall"])["modelRating"].describe()[['25%', '75%']]
 
-        sns.boxplot(x="overall", y="modelRating", data=new_data.toPandas())
         plt.xlabel('Overall Rating')
         plt.ylabel("NLP Model Rating")
         plt.title('Anomaly Detection')
         plt.savefig('outputs/anomaly_detection.png')
-        plt.show()
+        return anomaly_labels
