@@ -1,8 +1,9 @@
 # Anomaly Detection in Recommendation Systems
-It is a term project repository for CENG790 course in METU. In this project, product ratings were analyzed according to rating and year.
+It is a term project repository for CENG790 course in METU. In this project, the aim is detect anomalies in the Amazon Review Product dataset between user rating on the product and review text. For example, an user might give a low rating for a product because of courier company, not because of product.
+Firstly, the product ratings were analyzed according to rating and year.
 ![total_ratings_per_year](https://github.com/icgncl/CENG790_Project/blob/main/outputs/total_ratings_per_year.png?raw=true)
 
-Also in the project, the product review texts were analyzed semantically with BERT. The output of NLP model is "modelRating" and the dataset was already included product ratings. With these two data, anomalies were detected in the project.
+Also in the project, the product review texts were analyzed semantically with BERT. The output of NLP model is "modelRating" and the dataset has already product ratings which were given by users. With these two data, anomalies were detected in the project.
 
 ![anomaly_detection](https://github.com/icgncl/CENG790_Project/blob/main/outputs/anomaly_detection.png?raw=true)
 
