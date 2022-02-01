@@ -2,12 +2,16 @@ from pyspark.sql import SparkSession
 from core import Analysis, FilterData
 from model import Model, RecommendationModel
 
+
 def main():
     # Initialize Spark
     spark = SparkSession.builder \
-        .master("local[*]") \
+        .master("local[2]") \
         .appName("CENG790_Project") \
-        .getOrCreate()
+        .config("spark.executor.memory", "16g") \
+        .config("spark.driver.memory", "16g") \
+        .getOrCreate() 
+
 
     spark.sparkContext.setLogLevel("ERROR")
 
@@ -34,16 +38,19 @@ def main():
     print(f"Best model parameters: iteration{iteration}, rank {rank}, regParam {reg}")
 
     # It filters the anomalies from dataset
-    filtered_data = FilterData.filter_data(initial_data, anomaly_labels)
-
+    filtered_data_iqr = FilterData.filter_data_iqr(initial_data, anomaly_labels)
+    filtered_data_std = FilterData.filter_data_std(initial_data)
+    filtered_data_percentile = FilterData.filter_data_percentile(initial_data)
     # In order to feed model with NLP output use label_column as "modelRating"
     # in order to use users' default rating use "overall"
-    label_column = "modelRating"
-    RecommendationModel.rmse_calculate(label_column, initial_data, iteration, rank, reg)
-    RecommendationModel.rmse_calculate(label_column, filtered_data, iteration, rank, reg)
+    # label_column = "modelRating"
+    # RecommendationModel.rmse_calculate(label_column, initial_data, iteration, rank, reg)
+    # RecommendationModel.rmse_calculate(label_column, filtered_data, iteration, rank, reg)
     label_column = "overall"
     RecommendationModel.rmse_calculate(label_column, initial_data, iteration, rank, reg)
-    RecommendationModel.rmse_calculate(label_column, filtered_data, iteration, rank, reg)
+    RecommendationModel.rmse_calculate(label_column, filtered_data_iqr, iteration, rank, reg)
+    RecommendationModel.rmse_calculate(label_column, filtered_data_std, iteration, rank, reg)
+    RecommendationModel.rmse_calculate(label_column, filtered_data_percentile, iteration, rank, reg)
 
     spark.stop()
 
