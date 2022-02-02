@@ -66,11 +66,11 @@ class RecommendationModel:
         data = StringIndexer(inputCol="reviewerID", outputCol="reviewerID2").fit(data).transform(data)
         data = StringIndexer(inputCol="asin", outputCol="asin2").fit(data).transform(data)
 
-        (training, test) = data.randomSplit([0.8, 0.2], seed=11)
+        (training, test) = data.randomSplit([0.9, 0.1], seed=12)
 
         als = ALS(maxIter=iteration, regParam=reg, userCol="reviewerID2", itemCol="asin2",
                   ratingCol=label_column,
-                  coldStartStrategy="drop", seed=11, rank=rank)
+                  coldStartStrategy="drop", seed=12, rank=rank)
         model = als.fit(training)
 
         # Evaluate the model by computing the RMSE on the test data
